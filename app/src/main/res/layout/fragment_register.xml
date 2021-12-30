@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="250dp"
+            android:background="@drawable/credentials_background"
+            android:layout_height="40dp"
+            android:padding="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:hint="@string/enter_an_username" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/credentials_background"
+            android:padding="6dp"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etUsername"
+            android:hint="@string/enter_a_password" />
+
+        <EditText
+            android:id="@+id/etRepeatPassword"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:background="@drawable/credentials_background"
+            android:padding="6dp"
+            android:layout_marginTop="12dp"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="@+id/etPassword"
+            app:layout_constraintStart_toStartOf="@+id/etPassword"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword"
+            android:hint="@string/confirm_the_password" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegister"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/register"
+            app:layout_constraintEnd_toEndOf="@+id/etRepeatPassword"
+            app:layout_constraintStart_toStartOf="@+id/etRepeatPassword"
+            app:layout_constraintTop_toBottomOf="@+id/etRepeatPassword" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBackToLogin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="@string/back_to_login"
+            app:layout_constraintEnd_toEndOf="@+id/btnRegister"
+            app:layout_constraintStart_toStartOf="@+id/btnRegister"
+            app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

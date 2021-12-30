@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">AllAroundApp</string>
+    <string name="create_an_account">Create an account</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="login_field_empty_error">Username and password can not be empty</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="enter_your_username">Enter your username</string>
+    <string name="confirm_the_password">Confirm the password</string>
+    <string name="enter_a_password">Enter a password</string>
+    <string name="enter_an_username">Enter an username</string>
+    <string name="back_to_login">Back to login</string>
+    <string name="register_field_empty_error">No field can be left empty</string>
+    <string name="username_too_short_error">The username has to be at least 4 characters long</string>
+    <string name="username_too_long_error">The username has to be at most 16 characters long</string>
+    <string name="password_too_short_error">The password has to be at least 8 characters long</string>
+    <string name="password_too_long_error">The password has to be at most 32 characters long</string>
+    <string name="passwords_do_not_match">The passwords do not match</string>
+</resources>
