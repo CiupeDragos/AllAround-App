@@ -4,7 +4,10 @@ object Constants {
 
     const val ENCRYPTED_SHARED_PREF_NAME = "enc_shared_pref"
 
-    const val BASE_URL = "http://192.168.0.107:8080"
+    const val BASE_URL = "http://192.168.0.129:8080"
+    const val WS_BASE_URL = "http://192.168.0.129:8080/connectToChat"
+
+    const val RECONNECT_INTERVAL = 3000L
 
     const val KEY_LOGIN_USERNAME = "KEY_LOGIN_USERNAME"
     const val KEY_PASSWORD = "KEY_PASSWORD"
@@ -22,6 +25,18 @@ object Constants {
     const val TYPE_JOIN_GROUP_REQUEST = "TYPE_JOIN_GROUP_REQUEST"
     const val TYPE_NORMAL_CHAT_MESSAGE = "TYPE_NORMAL_CHAT_MESSAGE"
     const val TYPE_CHAT_GROUP_MESSAGE = "TYPE_CHAT_GROUP_MESSAGE"
+    const val TYPE_JOIN_MY_CHATS_REQUEST = "TYPE_JOIN_MY_CHATS_REQUEST"
+    const val TYPE_RECENT_CHATS = "TYPE_RECENT_CHATS"
+    const val TYPE_MESSAGES_FOR_THIS_CHAT = "TYPE_MESSAGES_FOR_THIS_CHAT"
+    const val TYPE_MESSAGES_FOR_THIS_GROUP = "TYPE_MESSAGES_FOR_THIS_GROUP"
+    const val TYPE_CONNECTED_TO_SOCKET = "TYPE_CONNECTED_TO_SOCKET"
+
+    const val TYPE_CHAT = "TYPE_CHAT"
+    const val TYPE_GROUP = "TYPE_GROUP"
+
+    const val CHATS_FRAGMENT = "CHATS_FRAGMENT"
+    const val INDIVIDUAL_CHAT_FRAGMENT = "INDIVIDUAL_CHAT_FRAGMENT"
+    const val GROUP_CHAT_FRAGMENT = "GROUP_CHAT_FRAGMENT"
 
     val IGNORE_AUTH_URL = listOf("/registerAccount", "/loginAccount")
 

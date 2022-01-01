@@ -94,7 +94,7 @@ class LoginFragment: Fragment() {
                     is LoginViewModel.LoginEvent.LoginSuccess -> {
                         sharedPref.edit().putString(KEY_LOGIN_USERNAME, curUsername).apply()
                         sharedPref.edit().putString(KEY_PASSWORD, curPassword).apply()
-                        basicAuthInterceptor.username = curUsername
+                        basicAuthInterceptor.username = curUsername!!
                         customSnackbar(event.data)
                         redirectLogin()
                     }

@@ -26,7 +26,14 @@
     <fragment
         android:id="@+id/chatsFragment"
         android:name="com.example.allaroundapp.ui.fragments.chats.ChatsFragment"
-        android:label="ChatsFragment" />
+        android:label="ChatsFragment" >
+        <action
+            android:id="@+id/action_chatsFragment_to_individualChatFragment"
+            app:destination="@id/individualChatFragment" />
+        <action
+            android:id="@+id/action_chatsFragment_to_groupChatFragment"
+            app:destination="@id/groupChatFragment" />
+    </fragment>
     <fragment
         android:id="@+id/friendsFragment"
         android:name="com.example.allaroundapp.ui.fragments.friends.FriendsFragment"
@@ -35,4 +42,19 @@
         android:id="@+id/profileFragment"
         android:name="com.example.allaroundapp.ui.fragments.profile.ProfileFragment"
         android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/individualChatFragment"
+        android:name="com.example.allaroundapp.ui.fragments.individualchat.IndividualChatFragment"
+        android:label="IndividualChatFragment" >
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <argument
+            android:name="chatPartner"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupChatFragment"
+        android:name="com.example.allaroundapp.ui.fragments.groupchat.GroupChatFragment"
+        android:label="GroupChatFragment" />
 </navigation>

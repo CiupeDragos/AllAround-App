@@ -1,17 +1,50 @@
 package com.example.allaroundapp.ui.fragments.chats
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.allaroundapp.R
+import com.example.allaroundapp.adapters.RecentChatsAdapter
+import com.example.allaroundapp.data.models.ConnectedToSocket
+import com.example.allaroundapp.data.models.RecentChat
 import com.example.allaroundapp.databinding.FragmentChatsBinding
+import com.example.allaroundapp.other.Constants.KEY_LOGIN_USERNAME
+import com.example.allaroundapp.other.Constants.NO_USERNAME
+import com.example.allaroundapp.other.navigateSafely
+import com.example.allaroundapp.ui.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.tinder.scarlet.WebSocket
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ChatsFragment: Fragment() {
+@AndroidEntryPoint
+class ChatsFragment : Fragment() {
     private var _binding: FragmentChatsBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: MainViewModel by activityViewModels()
+
+    private lateinit var recentChatsAdapter: RecentChatsAdapter
+
+    @Inject
+    lateinit var sharedPref: SharedPreferences
+
+    private lateinit var loggedInUsername: String
+
+    private var recentChatsUpdateJob: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,11 +57,100 @@ class ChatsFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationBar).visibility = View.VISIBLE
+        loggedInUsername = sharedPref.getString(KEY_LOGIN_USERNAME, NO_USERNAME) ?: NO_USERNAME
+        setupRecyclerView()
+        observeConnectionEvents()
+        observeSocketEvents()
+        subscribeToUiUpdates()
+        getMyRecentChats()
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationBar).visibility =
+            View.VISIBLE
+
+        recentChatsAdapter.setOnChatClickListener { clickedChat ->
+            val bundle = Bundle().apply {
+                putString("username", loggedInUsername)
+                putString("chatPartner", clickedChat.chattingTo)
+            }
+            findNavController().navigateSafely(
+                R.id.action_chatsFragment_to_individualChatFragment,
+                args = bundle
+            )
+        }
+
+        recentChatsAdapter.setOnGroupClickListener { clickedGroup ->
+            val bundle = Bundle().apply {
+                putString("username", loggedInUsername)
+                putString("groupId", clickedGroup.groupId)
+            }
+            findNavController().navigateSafely(
+                R.id.action_chatsFragment_to_groupChatFragment,
+                args = bundle
+            )
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun subscribeToUiUpdates() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.recentMessages.collect { recentMessages ->
+                    val chatsList = (recentMessages.chats + recentMessages.groups)
+                        .sortedByDescending { it.lastMessageTimestamp }
+                    updateRecentChats(chatsList)
+                }
+            }
+        }
+    }
+
+    private fun observeSocketEvents() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.socketEvents.collect { baseModel ->
+                when(baseModel) {
+                    is ConnectedToSocket -> {
+                        getMyRecentChats()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeConnectionEvents() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.connectionEvents.collect { event ->
+                when (event) {
+                    is WebSocket.Event.OnConnectionOpened<*> -> {
+                        //Log.d("Recent chats", "On connection opened recent chats called")
+                        //getMyRecentChats()
+                    }
+                    is WebSocket.Event.OnConnectionClosed -> {
+                        Log.d("Recent chats", "On connection closed")
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getMyRecentChats() {
+        Log.d("Recent chats", "Recent chats called")
+        viewModel.sendJoinMyChatsRequest(loggedInUsername)
+    }
+
+    private fun setupRecyclerView() {
+        recentChatsAdapter = RecentChatsAdapter(loggedInUsername, requireContext())
+        binding.rvRecentChats.apply {
+            adapter = recentChatsAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+    private fun updateRecentChats(chatList: List<RecentChat>) {
+        recentChatsUpdateJob?.cancel()
+        recentChatsUpdateJob = lifecycleScope.launch {
+            recentChatsAdapter.updateDataset(chatList)
+        }
     }
 }

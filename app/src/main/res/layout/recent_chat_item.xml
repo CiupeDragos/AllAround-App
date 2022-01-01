@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/photoCardView"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="16dp"
+            app:cardCornerRadius="100dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/chatPhoto"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/no_profile_photo"
+                android:scaleType="centerCrop" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvChatPartner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="John Doe"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/darkSecondaryGrey"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/photoCardView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvNewMessages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="230dp"
+            tools:text="You: how did you do that"
+            android:singleLine="true"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tvChatPartner"
+            app:layout_constraintTop_toBottomOf="@id/tvChatPartner"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/darkSecondaryGrey" />
+
+        <TextView
+            android:id="@+id/lastMessageTimestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/tvNewMessages"
+            app:layout_constraintTop_toTopOf="@id/tvNewMessages"
+            app:layout_constraintBottom_toBottomOf="@id/tvNewMessages"
+            android:layout_marginStart="6dp"
+            android:textSize="15sp"
+            android:textColor="@color/darkSecondaryGrey"
+            tools:text="13:56"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -16,4 +16,8 @@
     <string name="password_too_short_error">The password has to be at least 8 characters long</string>
     <string name="password_too_long_error">The password has to be at most 32 characters long</string>
     <string name="passwords_do_not_match">The passwords do not match</string>
+    <string name="user_sent_last_message">You:%s</string>
+    <string name="chat_partner_send_last_message">%s:%s</string>
+    <string name="user_has_new_messages">%d new messages</string>
+    <string name="enter_a_message">Type a message..</string>
 </resources>
