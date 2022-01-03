@@ -92,6 +92,12 @@ class ChatsFragment : Fragment() {
                 args = bundle
             )
         }
+
+        binding.createGroupCard.setOnClickListener {
+            findNavController().navigateSafely(
+                R.id.action_chatsFragment_to_createGroupFragment
+            )
+        }
     }
 
     override fun onDestroy() {

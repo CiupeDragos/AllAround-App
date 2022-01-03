@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_chatsFragment_to_groupChatFragment"
             app:destination="@id/groupChatFragment" />
+        <action
+            android:id="@+id/action_chatsFragment_to_createGroupFragment"
+            app:destination="@id/createGroupFragment" />
     </fragment>
     <fragment
         android:id="@+id/friendsFragment"
@@ -65,6 +68,14 @@
             app:argType="string" />
         <argument
             android:name="groupName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/createGroupFragment"
+        android:name="com.example.allaroundapp.ui.fragments.creategroup.CreateGroupFragment"
+        android:label="CreateGroupFragment" >
+        <argument
+            android:name="username"
             app:argType="string" />
     </fragment>
 </navigation>
