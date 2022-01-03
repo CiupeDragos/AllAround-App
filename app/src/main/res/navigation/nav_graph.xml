@@ -56,5 +56,15 @@
     <fragment
         android:id="@+id/groupChatFragment"
         android:name="com.example.allaroundapp.ui.fragments.groupchat.GroupChatFragment"
-        android:label="GroupChatFragment" />
+        android:label="GroupChatFragment" >
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <argument
+            android:name="groupId"
+            app:argType="string" />
+        <argument
+            android:name="groupName"
+            app:argType="string" />
+    </fragment>
 </navigation>

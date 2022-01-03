@@ -60,6 +60,7 @@ class LoginFragment: Fragment() {
         progressBar = requireActivity().findViewById(R.id.progressBar)
         bottomNav.visibility = View.GONE
         if(isLoggedIn()) {
+            basicAuthInterceptor.username = curUsername!!
             redirectLogin()
         }
 
@@ -116,6 +117,7 @@ class LoginFragment: Fragment() {
     private fun isLoggedIn(): Boolean {
         val username = sharedPref.getString(KEY_LOGIN_USERNAME, NO_USERNAME)
         val password = sharedPref.getString(KEY_PASSWORD, NO_PASSWORD)
+        curUsername = username
 
         return username != NO_USERNAME && password != NO_PASSWORD
     }

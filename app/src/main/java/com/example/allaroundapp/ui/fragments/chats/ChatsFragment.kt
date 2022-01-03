@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -46,6 +47,8 @@ class ChatsFragment : Fragment() {
 
     private var recentChatsUpdateJob: Job? = null
 
+    private lateinit var progressBar: ProgressBar
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,6 +61,7 @@ class ChatsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loggedInUsername = sharedPref.getString(KEY_LOGIN_USERNAME, NO_USERNAME) ?: NO_USERNAME
+        progressBar = requireActivity().findViewById(R.id.progressBar)
         setupRecyclerView()
         observeConnectionEvents()
         observeSocketEvents()
@@ -81,6 +85,7 @@ class ChatsFragment : Fragment() {
             val bundle = Bundle().apply {
                 putString("username", loggedInUsername)
                 putString("groupId", clickedGroup.groupId)
+                putString("groupName", clickedGroup.name)
             }
             findNavController().navigateSafely(
                 R.id.action_chatsFragment_to_groupChatFragment,
@@ -95,9 +100,13 @@ class ChatsFragment : Fragment() {
     }
 
     private fun subscribeToUiUpdates() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.recentMessages.collect { recentMessages ->
+                    //hideProgressBar()
+                    if(recentMessages.groups.isNotEmpty()) {
+                        Log.d("Groups", recentMessages.groups[0].lastMessageSender)
+                    }
                     val chatsList = (recentMessages.chats + recentMessages.groups)
                         .sortedByDescending { it.lastMessageTimestamp }
                     updateRecentChats(chatsList)
@@ -136,7 +145,12 @@ class ChatsFragment : Fragment() {
 
     private fun getMyRecentChats() {
         Log.d("Recent chats", "Recent chats called")
+        //progressBar.visibility = View.VISIBLE
         viewModel.sendJoinMyChatsRequest(loggedInUsername)
+    }
+
+    private fun hideProgressBar() {
+        progressBar.visibility = View.GONE
     }
 
     private fun setupRecyclerView() {

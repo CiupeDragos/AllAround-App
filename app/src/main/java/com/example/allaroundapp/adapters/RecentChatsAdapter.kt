@@ -15,6 +15,7 @@ import com.example.allaroundapp.other.Constants.TYPE_CHAT
 import com.example.allaroundapp.other.Constants.TYPE_GROUP
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.lang.reflect.Type
 
 
 class RecentChatsAdapter(
@@ -81,6 +82,7 @@ class RecentChatsAdapter(
                         )
                         tvNewMessages.text = lastMessageText
                         tvNewMessages.setTypeface(tvNewMessages.typeface, Typeface.NORMAL)
+                        tvChatPartner.setTypeface(tvChatPartner.typeface, Typeface.NORMAL)
                     } else {
                         tvNewMessages.text = context.resources
                             .getString(
@@ -88,6 +90,7 @@ class RecentChatsAdapter(
                                 curChat.newMessages
                             )
                         tvNewMessages.setTypeface(tvNewMessages.typeface, Typeface.BOLD)
+                        tvChatPartner.setTypeface(tvChatPartner.typeface, Typeface.BOLD)
                     }
                     root.setOnClickListener {
                         onChatClick?.let { clickChat ->
@@ -109,6 +112,7 @@ class RecentChatsAdapter(
                         )
                         tvNewMessages.text = lastMessageText
                         tvNewMessages.setTypeface(tvNewMessages.typeface, Typeface.NORMAL)
+                        tvChatPartner.setTypeface(tvChatPartner.typeface, Typeface.NORMAL)
                     } else {
                         tvNewMessages.text = context.resources
                             .getString(
@@ -116,6 +120,7 @@ class RecentChatsAdapter(
                                 curGroup.newMessages
                             )
                         tvNewMessages.setTypeface(tvNewMessages.typeface, Typeface.BOLD)
+                        tvChatPartner.setTypeface(tvChatPartner.typeface, Typeface.BOLD)
                     }
                     root.setOnClickListener {
                         onGroupClick?.let { clickGroup ->

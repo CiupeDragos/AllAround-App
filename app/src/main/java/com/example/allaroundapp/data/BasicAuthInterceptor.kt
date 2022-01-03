@@ -6,7 +6,7 @@ import okhttp3.Response
 
 class BasicAuthInterceptor: Interceptor {
 
-    var username = "bosmania"
+    var username: String? = null
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
