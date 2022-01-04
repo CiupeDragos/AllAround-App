@@ -4,8 +4,8 @@ object Constants {
 
     const val ENCRYPTED_SHARED_PREF_NAME = "enc_shared_pref"
 
-    const val BASE_URL = "http://192.168.0.129:8080"
-    const val WS_BASE_URL = "http://192.168.0.129:8080/connectToChat"
+    const val BASE_URL = "http://192.168.0.107:8080"
+    const val WS_BASE_URL = "http://192.168.0.107:8080/connectToChat"
 
     const val RECONNECT_INTERVAL = 3000L
 

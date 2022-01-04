@@ -21,10 +21,11 @@
     <string name="user_has_new_messages">%d new messages</string>
     <string name="enter_a_message">Type a message..</string>
     <string name="no_members_added">No members added</string>
-    <string name="add_group_members">Add group members:</string>
+    <string name="add_group_members">Selected group members:</string>
     <string name="enter_a_group_name">Enter a group name..</string>
     <string name="group_name">Group name:</string>
     <string name="create_a_new_group">Create a new group</string>
     <string name="create_group">Create group</string>
     <string name="recommended">Recommended:</string>
+    <string name="search_for_people">Search for people</string>
 </resources>

@@ -15,7 +15,7 @@ import com.example.allaroundapp.other.Constants.TYPE_CHAT
 import com.example.allaroundapp.other.Constants.TYPE_GROUP
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.lang.reflect.Type
+import kotlin.String
 
 
 class RecentChatsAdapter(

@@ -4,22 +4,28 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/drawable/credentials_background.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/drawable/ic_baseline_create_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/drawable/ic_delete.xml" value="0.3828125" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/drawable/incoming_message_background.xml" value="0.3828125" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/drawable/outgoin_message_background.xml" value="0.3828125" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/drawable/searched_member_background.xml" value="0.3828125" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/fragment_chats.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/fragment_chats.xml" value="0.33" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/fragment_create_group.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/fragment_friends.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/fragment_group_chat.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/fragment_individual_chat.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/fragment_profile.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/fragment_register.xml" value="0.22" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/item_incoming_group_message.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/item_incoming_message.xml" value="0.25" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/item_outgoing_group_message.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/item_outgoing_message.xml" value="0.33" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/item_selected_group_member.xml" value="0.33" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/item_to_select_group_member.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/recent_chat_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
-        <entry key="..\:/git/AllAround-App/app/src/main/res/drawable/enter_message_background.xml" value="0.18796296296296297" />
-        <entry key="..\:/git/AllAround-App/app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.18796296296296297" />
-        <entry key="..\:/git/AllAround-App/app/src/main/res/drawable/ic_send_message.xml" value="0.18796296296296297" />
-        <entry key="..\:/git/AllAround-App/app/src/main/res/drawable/round_image_background.xml" value="0.19166666666666668" />
-        <entry key="..\:/git/AllAround-App/app/src/main/res/layout/fragment_chats.xml" value="0.2" />
-        <entry key="..\:/git/AllAround-App/app/src/main/res/layout/fragment_create_group.xml" value="0.2" />
-        <entry key="..\:/git/AllAround-App/app/src/main/res/layout/fragment_group_chat.xml" value="0.23645833333333333" />
-        <entry key="..\:/git/AllAround-App/app/src/main/res/layout/fragment_individual_chat.xml" value="0.4" />
-        <entry key="..\:/git/AllAround-App/app/src/main/res/layout/recent_chat_item.xml" value="0.264" />
       </map>
     </option>
   </component>

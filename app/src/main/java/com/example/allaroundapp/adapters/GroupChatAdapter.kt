@@ -9,6 +9,7 @@ import com.example.allaroundapp.databinding.ItemIncomingGroupMessageBinding
 import com.example.allaroundapp.databinding.ItemOutgoingGroupMessageBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlin.String
 
 const val INCOMING_GROUP_MESSAGE = 0
 const val OUTGOING_GROUP_MESSAGE = 1

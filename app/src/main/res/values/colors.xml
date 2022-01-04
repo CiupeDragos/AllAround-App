@@ -9,4 +9,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="lightGray">#d9d9d9</color>
+    <color name="deleteRed">#6e0110</color>
+    <color name="selectedGreen">#007a0a</color>
 </resources>
