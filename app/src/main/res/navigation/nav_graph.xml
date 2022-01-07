@@ -40,7 +40,17 @@
     <fragment
         android:id="@+id/friendsFragment"
         android:name="com.example.allaroundapp.ui.fragments.friends.FriendsFragment"
-        android:label="FriendsFragment" />
+        android:label="FriendsFragment" >
+        <action
+            android:id="@+id/action_friendsFragment_to_sentRequestsFragment"
+            app:destination="@id/sentRequestsFragment" />
+        <action
+            android:id="@+id/action_friendsFragment_to_receivedRequestFragment"
+            app:destination="@id/receivedRequestFragment" />
+        <action
+            android:id="@+id/action_friendsFragment_to_sendRequestsFragment"
+            app:destination="@id/sendRequestsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.allaroundapp.ui.fragments.profile.ProfileFragment"
@@ -77,5 +87,28 @@
         <argument
             android:name="username"
             app:argType="string" />
+        <action
+            android:id="@+id/action_createGroupFragment_to_groupChatFragment"
+            app:destination="@id/groupChatFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/sentRequestsFragment"
+        android:name="com.example.allaroundapp.ui.fragments.friends.SentRequestsFragment"
+        android:label="SentRequestsFragment" >
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/receivedRequestFragment"
+        android:name="com.example.allaroundapp.ui.fragments.friends.ReceivedRequestFragment"
+        android:label="ReceivedRequestFragment" >
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/sendRequestsFragment"
+        android:name="com.example.allaroundapp.ui.fragments.friends.SendRequestsFragment"
+        android:label="SendRequestsFragment" />
 </navigation>

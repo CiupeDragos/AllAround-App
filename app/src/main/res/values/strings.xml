@@ -28,4 +28,7 @@
     <string name="create_group">Create group</string>
     <string name="recommended">Recommended:</string>
     <string name="search_for_people">Search for people</string>
+    <string name="group_name_error">Group name must be between %d and %d characters</string>
+    <string name="you_created_the_group">You created the group</string>
+    <string name="you_were_added">You were added</string>
 </resources>

@@ -5,4 +5,5 @@ data class GroupToSendAsRecent(
     val groupId: String,
     val newMessages: Int,
     val lastMessage: String,
+    val owner: String
 ): RecentChat()

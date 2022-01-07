@@ -110,7 +110,15 @@ class RecentChatsAdapter(
                             curGroup.lastMessage,
                             curGroup.lastMessageSender
                         )
-                        tvNewMessages.text = lastMessageText
+                        if(lastMessageText != "No messages") {
+                            tvNewMessages.text = lastMessageText
+                        } else {
+                            if(curGroup.owner == username) {
+                                tvNewMessages.text = context.getString(R.string.you_created_the_group)
+                            } else {
+                                tvNewMessages.text = context.getText(R.string.you_were_added)
+                            }
+                        }
                         tvNewMessages.setTypeface(tvNewMessages.typeface, Typeface.NORMAL)
                         tvChatPartner.setTypeface(tvChatPartner.typeface, Typeface.NORMAL)
                     } else {
@@ -155,8 +163,8 @@ class RecentChatsAdapter(
         }
     }
 
-    var onChatClick: ((ChatToSendAsRecent) -> Unit)? = null
-    var onGroupClick: ((GroupToSendAsRecent) -> Unit)? = null
+    private var onChatClick: ((ChatToSendAsRecent) -> Unit)? = null
+    private var onGroupClick: ((GroupToSendAsRecent) -> Unit)? = null
 
     fun setOnChatClickListener(listener: (ChatToSendAsRecent) -> Unit) {
         onChatClick = listener

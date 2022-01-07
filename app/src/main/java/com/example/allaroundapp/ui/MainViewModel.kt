@@ -5,9 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.allaroundapp.data.models.*
 import com.example.allaroundapp.data.remote.WebSocketApi
+import com.example.allaroundapp.data.requests.DisconnectUnchattinUser
 import com.example.allaroundapp.other.Constants.CHATS_FRAGMENT
 import com.tinder.scarlet.WebSocket
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -97,22 +99,29 @@ class MainViewModel @Inject constructor(
     }
 
     fun sendJoinMyChatsRequest(username: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val request = JoinMyChatsRequest(username)
             sendBaseModel(request)
         }
     }
 
     fun sendJoinChatRequest(username: String, chatPartner: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val request = JoinChatRequest(username, chatPartner)
             sendBaseModel(request)
         }
     }
 
     fun sendJoinGroupRequest(username: String, groupId: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val request = JoinGroupRequest(username, groupId)
+            sendBaseModel(request)
+        }
+    }
+
+    fun disconnectUnchattingUser(username: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val request = DisconnectUnchattinUser(username)
             sendBaseModel(request)
         }
     }

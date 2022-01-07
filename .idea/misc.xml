@@ -26,6 +26,18 @@
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/item_to_select_group_member.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/layout/recent_chat_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/AllAroundApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/git/AllAround-App/app/src/main/res/drawable/cancel_friend_request_background.xml" value="0.17407407407407408" />
+        <entry key="..\:/git/AllAround-App/app/src/main/res/drawable/request_buttons_background.xml" value="0.1787037037037037" />
+        <entry key="..\:/git/AllAround-App/app/src/main/res/layout/fragment_chats.xml" value="0.2" />
+        <entry key="..\:/git/AllAround-App/app/src/main/res/layout/fragment_friends.xml" value="0.2" />
+        <entry key="..\:/git/AllAround-App/app/src/main/res/layout/fragment_received_requests.xml" value="0.23645833333333333" />
+        <entry key="..\:/git/AllAround-App/app/src/main/res/layout/fragment_send_requests.xml" value="0.176" />
+        <entry key="..\:/git/AllAround-App/app/src/main/res/layout/fragment_sent_requests.xml" value="0.2" />
+        <entry key="..\:/git/AllAround-App/app/src/main/res/layout/item_received_friend_request.xml" value="0.2" />
+        <entry key="..\:/git/AllAround-App/app/src/main/res/layout/item_selected_group_member.xml" value="0.23645833333333333" />
+        <entry key="..\:/git/AllAround-App/app/src/main/res/layout/item_send_friend_request.xml" value="0.23645833333333333" />
+        <entry key="..\:/git/AllAround-App/app/src/main/res/layout/item_sent_friend_request.xml" value="0.2531194295900178" />
+        <entry key="..\:/git/AllAround-App/app/src/main/res/layout/item_to_select_group_member.xml" value="0.264" />
       </map>
     </option>
   </component>

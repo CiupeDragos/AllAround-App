@@ -94,8 +94,12 @@ class ChatsFragment : Fragment() {
         }
 
         binding.createGroupCard.setOnClickListener {
+            val bundle = Bundle().apply {
+                putString("username", loggedInUsername)
+            }
             findNavController().navigateSafely(
-                R.id.action_chatsFragment_to_createGroupFragment
+                R.id.action_chatsFragment_to_createGroupFragment,
+                args = bundle
             )
         }
     }

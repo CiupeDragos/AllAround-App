@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.allaroundapp.adapters.SelectedGroupMember
+import com.example.allaroundapp.other.Constants.MAX_CHAT_GROUP_NAME_LENGTH
+import com.example.allaroundapp.other.Constants.MIN_CHAT_GROUP_NAME_LENGTH
 import com.example.allaroundapp.other.Resource
 import com.example.allaroundapp.repositories.AbstractRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,10 +22,9 @@ class CreateGroupViewModel @Inject constructor(
 ): ViewModel() {
 
     sealed class GroupEvents {
-        object GroupNameTooShort: GroupEvents()
-        object GroupNameTooLong: GroupEvents()
-        object GroupNameEmpty: GroupEvents()
+        object GroupNameLengthError: GroupEvents()
 
+        data class CreateGroupSuccess(val message: String): GroupEvents()
         data class CreateGroupError(val error: String): GroupEvents()
         data class GetFriendsApiCall(val friends: List<String>): GroupEvents()
         data class GetUsersApiCall(val users: List<String>): GroupEvents()
@@ -54,6 +55,26 @@ class CreateGroupViewModel @Inject constructor(
                 }
                 is Resource.Error -> {
                     _apiEvents.emit(GroupEvents.GetUsersApiCall(listOf()))
+                }
+            }
+        }
+    }
+
+    fun validateNameAndCreateGroup(groupName: String, members: List<String>) {
+        viewModelScope.launch {
+            val trimmedGroupName = groupName.trim()
+            if(
+                trimmedGroupName.length < MIN_CHAT_GROUP_NAME_LENGTH
+                || trimmedGroupName.length > MAX_CHAT_GROUP_NAME_LENGTH) {
+                _apiEvents.emit(GroupEvents.GroupNameLengthError)
+                return@launch
+            }
+            when(val result = repository.createGroup(groupName, members)) {
+                is Resource.Success -> {
+                    _apiEvents.emit(GroupEvents.CreateGroupSuccess(result.data!!))
+                }
+                is Resource.Error -> {
+                    _apiEvents.emit(GroupEvents.CreateGroupError(result.message ?: "Unknown error occurred!"))
                 }
             }
         }

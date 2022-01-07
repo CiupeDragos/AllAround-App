@@ -1,8 +1,10 @@
 package com.example.allaroundapp.data
 
 import com.example.allaroundapp.data.models.*
+import com.example.allaroundapp.data.requests.DisconnectUnchattinUser
 import com.example.allaroundapp.other.Constants.TYPE_CHAT_GROUP_MESSAGE
 import com.example.allaroundapp.other.Constants.TYPE_CONNECTED_TO_SOCKET
+import com.example.allaroundapp.other.Constants.TYPE_DISCONNECT_UNCHATTING_USER
 import com.example.allaroundapp.other.Constants.TYPE_JOIN_CHAT_REQUEST
 import com.example.allaroundapp.other.Constants.TYPE_JOIN_GROUP_REQUEST
 import com.example.allaroundapp.other.Constants.TYPE_JOIN_MY_CHATS_REQUEST
@@ -49,6 +51,7 @@ class CustomGsonMessageAdapter<T> private constructor(
             TYPE_NORMAL_CHAT_MESSAGE -> dataToSend as NormalChatMessage
             TYPE_CHAT_GROUP_MESSAGE -> dataToSend as ChatGroupMessage
             TYPE_JOIN_MY_CHATS_REQUEST -> dataToSend as JoinMyChatsRequest
+            TYPE_DISCONNECT_UNCHATTING_USER -> dataToSend as DisconnectUnchattinUser
             else -> dataToSend
         }
         val jsonDataToSend = gson.toJson(dataToSend)
