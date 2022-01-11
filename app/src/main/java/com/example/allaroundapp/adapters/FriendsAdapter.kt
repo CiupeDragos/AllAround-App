@@ -41,6 +41,11 @@ class FriendsAdapter: RecyclerView.Adapter<FriendsAdapter.FriendViewHolder>() {
         val item = differ.currentList[position]
         holder.binding.tvUsername.text = item
 
+        holder.binding.root.setOnClickListener  {
+            onFriendClick?.let { openChat ->
+                openChat(item)
+            }
+        }
     }
 
     private var onFriendClick: ((String) -> Unit)? = null

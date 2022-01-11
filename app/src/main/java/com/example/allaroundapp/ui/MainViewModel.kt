@@ -6,11 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.allaroundapp.data.models.*
 import com.example.allaroundapp.data.remote.WebSocketApi
 import com.example.allaroundapp.data.requests.DisconnectUnchattinUser
-import com.example.allaroundapp.other.Constants.CHATS_FRAGMENT
 import com.tinder.scarlet.WebSocket
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject

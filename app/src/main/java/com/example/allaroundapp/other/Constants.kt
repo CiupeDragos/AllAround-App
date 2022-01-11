@@ -4,8 +4,8 @@ object Constants {
 
     const val ENCRYPTED_SHARED_PREF_NAME = "enc_shared_pref"
 
-    const val BASE_URL = "http://192.168.0.129:8080"
-    const val WS_BASE_URL = "http://192.168.0.129:8080/connectToChat"
+    const val BASE_URL = "http://192.168.0.107:8080"
+    const val WS_BASE_URL = "http://192.168.0.107:8080/connectToChat"
 
     const val RECONNECT_INTERVAL = 3000L
 
@@ -34,12 +34,6 @@ object Constants {
 
     const val TYPE_CHAT = "TYPE_CHAT"
     const val TYPE_GROUP = "TYPE_GROUP"
-
-    const val CHATS_FRAGMENT = "CHATS_FRAGMENT"
-    const val INDIVIDUAL_CHAT_FRAGMENT = "INDIVIDUAL_CHAT_FRAGMENT"
-    const val GROUP_CHAT_FRAGMENT = "GROUP_CHAT_FRAGMENT"
-
-    const val NO_REQUESTS = "NO_REQUESTS"
 
     val IGNORE_AUTH_URL = listOf("/registerAccount", "/loginAccount")
 

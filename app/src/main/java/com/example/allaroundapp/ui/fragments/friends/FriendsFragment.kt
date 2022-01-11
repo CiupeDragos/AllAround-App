@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -15,13 +16,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.allaroundapp.R
 import com.example.allaroundapp.adapters.FriendsAdapter
-import com.example.allaroundapp.databinding.FragmentChatsBinding
 import com.example.allaroundapp.databinding.FragmentFriendsBinding
-import com.example.allaroundapp.databinding.FragmentLoginBinding
 import com.example.allaroundapp.other.Constants.KEY_LOGIN_USERNAME
 import com.example.allaroundapp.other.Constants.NO_USERNAME
 import com.example.allaroundapp.other.navigateSafely
 import com.example.allaroundapp.ui.MainViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -60,6 +60,8 @@ class FriendsFragment: Fragment() {
         subscribeToUiUpdates()
         getFriends()
 
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationBar).isVisible = true
+
         binding.tvSentFriendRequests.setOnClickListener {
             val bundle = Bundle().apply {
                 putString("username", loggedInUsername)
@@ -83,6 +85,17 @@ class FriendsFragment: Fragment() {
         binding.sendRequestCard.setOnClickListener {
             findNavController().navigateSafely(
                 R.id.action_friendsFragment_to_sendRequestsFragment
+            )
+        }
+
+        friendsAdapter.setOnFriendClick { friendName ->
+            val bundle = Bundle().apply {
+                putString("username", loggedInUsername)
+                putString("chatPartner", friendName)
+            }
+            findNavController().navigateSafely(
+                R.id.action_friendsFragment_to_individualChatFragment,
+                args = bundle
             )
         }
     }

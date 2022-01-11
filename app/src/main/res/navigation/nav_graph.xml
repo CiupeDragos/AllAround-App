@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_friendsFragment_to_sendRequestsFragment"
             app:destination="@id/sendRequestsFragment" />
+        <action
+            android:id="@+id/action_friendsFragment_to_individualChatFragment"
+            app:destination="@id/individualChatFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"

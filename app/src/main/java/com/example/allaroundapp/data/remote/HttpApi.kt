@@ -5,10 +5,7 @@ import com.example.allaroundapp.data.requests.CreateGroupRequest
 import com.example.allaroundapp.data.responses.BasicApiResponse
 import com.example.allaroundapp.data.responses.FriendRequestsResponse
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface HttpApi {
 
@@ -16,7 +13,7 @@ interface HttpApi {
     suspend fun registerAccount(
         @Body accountRequest: AccountRequest
     ): Response<BasicApiResponse>
-
+    
     @POST("/loginAccount")
     suspend fun loginAccount(
         @Body accountRequest: AccountRequest
