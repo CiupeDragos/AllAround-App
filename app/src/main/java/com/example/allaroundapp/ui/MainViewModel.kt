@@ -11,7 +11,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.HashMap
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -122,5 +125,71 @@ class MainViewModel @Inject constructor(
             val request = DisconnectUnchattinUser(username)
             sendBaseModel(request)
         }
+    }
+
+    fun getMessageDetailsFromTimestamp(timestamp: Long): HashMap<String, String> {
+        val yearFormatPattern = SimpleDateFormat("yyy", Locale.getDefault())
+        val monthFormatPattern = SimpleDateFormat("LLL", Locale.getDefault())
+        val dayFormatPattern = SimpleDateFormat("d", Locale.getDefault())
+
+        val formattedYear = yearFormatPattern.format(timestamp)
+        val formattedMonth = monthFormatPattern.format(timestamp)
+        val formattedDay = dayFormatPattern.format(timestamp)
+
+        val hashMapToReturn = hashMapOf<String, String>()
+
+        hashMapToReturn.apply {
+            put("year", formattedYear)
+            put("month", formattedMonth)
+            put("day", formattedDay)
+        }
+
+        return hashMapToReturn
+    }
+
+    fun formatMessageTimestamp(timestamp1: Long, timestamp2: Long): String {
+        val detForTimestamp1 = getMessageDetailsFromTimestamp(timestamp1)
+        val detForTimestamp2 = getMessageDetailsFromTimestamp(timestamp2)
+        val detForCurrentTimestamp = getMessageDetailsFromTimestamp(System.currentTimeMillis())
+        val year1 = detForTimestamp1["year"]
+        val year2 = detForTimestamp2["year"]
+        val month1 = detForTimestamp1["month"]
+        val month2 = detForTimestamp2["month"]
+        val day1 = detForTimestamp1["day"]
+        val day2 = detForTimestamp2["day"]
+        val dayCur = detForCurrentTimestamp["day"]
+        val yearCur = detForCurrentTimestamp["year"]
+
+        var formattedDate = ""
+
+        when {
+            year1 != year2 -> {
+                formattedDate = if(year2 == yearCur) {
+                    "$month2 $day2"
+                } else {
+                    "$month2 $day2 $year2"
+                }
+            }
+            month1 != month2 -> {
+                formattedDate = "$month2 $day2"
+            }
+            day1 != day2 -> {
+                when {
+                    day2!!.toInt() == dayCur!!.toInt() - 1 -> {
+                        formattedDate = "Yesterday"
+                    }
+                    day2 == dayCur -> {
+                        formattedDate = "Today"
+                    }
+                    else -> {
+                        formattedDate = "$month2 $day2"
+                    }
+                }
+            }
+            else -> {
+                formattedDate = "NO_HANDLE"
+            }
+        }
+        return formattedDate
     }
 }

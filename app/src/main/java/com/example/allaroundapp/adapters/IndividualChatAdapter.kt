@@ -6,18 +6,24 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.allaroundapp.data.models.NormalChatMessage
 import com.example.allaroundapp.databinding.ItemIncomingMessageBinding
+import com.example.allaroundapp.databinding.ItemMessageDayBinding
 import com.example.allaroundapp.databinding.ItemOutgoingMessageBinding
+import com.example.allaroundapp.other.Constants.MESSAGE_DAY_ANNOUNCEMENT
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.String
 
 const val INCOMING_MESSAGE = 0
 const val OUTGOING_MESSAGE = 1
+const val TIMESTAMP_MESSAGE = 2
 
 class IndividualChatAdapter(val username: String): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class IncomingMessageViewHolder(val binding: ItemIncomingMessageBinding): RecyclerView.ViewHolder(binding.root)
     class OutgoingMessageViewHolder(val binding: ItemOutgoingMessageBinding): RecyclerView.ViewHolder(binding.root)
+    class MessageForTimeViewHolder(val binding: ItemMessageDayBinding): RecyclerView.ViewHolder(binding.root)
 
     var chatMessages = listOf<NormalChatMessage>()
 
@@ -47,6 +53,9 @@ class IndividualChatAdapter(val username: String): RecyclerView.Adapter<Recycler
 
     override fun getItemViewType(position: Int): Int {
         return when (chatMessages[position].sender) {
+            MESSAGE_DAY_ANNOUNCEMENT -> {
+                TIMESTAMP_MESSAGE
+            }
             username -> {
                 OUTGOING_MESSAGE
             }
@@ -62,6 +71,14 @@ class IndividualChatAdapter(val username: String): RecyclerView.Adapter<Recycler
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when(viewType) {
+            TIMESTAMP_MESSAGE -> {
+                val layout = ItemMessageDayBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                return MessageForTimeViewHolder(layout)
+            }
             INCOMING_MESSAGE -> {
                 val layout = ItemIncomingMessageBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -88,11 +105,26 @@ class IndividualChatAdapter(val username: String): RecyclerView.Adapter<Recycler
             is IncomingMessageViewHolder -> {
                 holder.binding.apply {
                     tvChatMessage.text = curMessage.message
+
+                    val timestampPattern = SimpleDateFormat("kk:mm", Locale.getDefault())
+                    val formattedTime = timestampPattern.format(curMessage.timestamp)
+
+                    tvMessageTimestamp.text = formattedTime
                 }
             }
             is OutgoingMessageViewHolder -> {
                 holder.binding.apply {
                     tvChatMessage.text = curMessage.message
+
+                    val timestampPattern = SimpleDateFormat("kk:mm", Locale.getDefault())
+                    val formattedTime = timestampPattern.format(curMessage.timestamp)
+
+                    tvMessageTimestamp.text = formattedTime
+                }
+            }
+            is MessageForTimeViewHolder -> {
+                holder.binding.apply {
+                    messageDayText.text = curMessage.message
                 }
             }
         }

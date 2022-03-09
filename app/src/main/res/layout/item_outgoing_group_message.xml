@@ -23,6 +23,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:elevation="6dp"
+            android:maxWidth="360dp"
+            android:minWidth="120dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -44,6 +46,16 @@
                 android:layout_height="wrap_content"
                 tools:text="Hi,how are you?"
                 android:textColor="@color/darkSecondaryGrey" />
+
+            <TextView
+                android:id="@+id/tvMessageTimestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/incomingMessageLayout"
+                app:layout_constraintTop_toTopOf="@id/incomingMessageLayout"
+                android:layout_marginEnd="4dp"
+                tools:text="13:32"
+                android:textColor="@color/darkSecondaryGrey"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

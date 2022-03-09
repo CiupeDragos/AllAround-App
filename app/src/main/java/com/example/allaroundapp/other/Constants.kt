@@ -4,8 +4,8 @@ object Constants {
 
     const val ENCRYPTED_SHARED_PREF_NAME = "enc_shared_pref"
 
-    const val BASE_URL = "http://192.168.0.107:8080"
-    const val WS_BASE_URL = "http://192.168.0.107:8080/connectToChat"
+    const val BASE_URL = "http://192.168.0.129:8080"
+    const val WS_BASE_URL = "http://192.168.0.129:8080/connectToChat"
 
     const val RECONNECT_INTERVAL = 3000L
 
@@ -31,6 +31,8 @@ object Constants {
     const val TYPE_MESSAGES_FOR_THIS_GROUP = "TYPE_MESSAGES_FOR_THIS_GROUP"
     const val TYPE_CONNECTED_TO_SOCKET = "TYPE_CONNECTED_TO_SOCKET"
     const val TYPE_DISCONNECT_UNCHATTING_USER = "TYPE_DISCONNECT_UNCHATTING_USER"
+
+    const val MESSAGE_DAY_ANNOUNCEMENT = "MESSAGE_DAY_ANNOUNCEMENT"
 
     const val TYPE_CHAT = "TYPE_CHAT"
     const val TYPE_GROUP = "TYPE_GROUP"

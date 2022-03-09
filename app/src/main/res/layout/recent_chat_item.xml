@@ -45,7 +45,7 @@
             android:id="@+id/tvNewMessages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="230dp"
+            android:maxWidth="180dp"
             tools:text="You: how did you do that"
             android:singleLine="true"
             android:textSize="14sp"

@@ -93,5 +93,26 @@
             app:layout_constraintBottom_toTopOf="@+id/bottomChatBar"
             app:layout_constraintTop_toBottomOf="@+id/topBar" />
 
+        <LinearLayout
+            android:id="@+id/messageDayLayout"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topBar"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:padding="2dp"
+                android:id="@+id/messageDayText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="January 12"
+                android:textColor="@color/white"
+                android:background="@drawable/request_buttons_background"/>
+
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

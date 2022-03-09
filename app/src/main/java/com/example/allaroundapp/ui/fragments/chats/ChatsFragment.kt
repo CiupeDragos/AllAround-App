@@ -164,7 +164,7 @@ class ChatsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        recentChatsAdapter = RecentChatsAdapter(loggedInUsername, requireContext())
+        recentChatsAdapter = RecentChatsAdapter(loggedInUsername, requireContext(), viewModel)
         binding.rvRecentChats.apply {
             adapter = recentChatsAdapter
             layoutManager = LinearLayoutManager(requireContext())

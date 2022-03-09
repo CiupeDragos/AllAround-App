@@ -2,25 +2,19 @@ package com.example.allaroundapp.ui.fragments.friends
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.SearchEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.allaroundapp.adapters.SendRequestsAdapter
-import com.example.allaroundapp.databinding.FragmentChatsBinding
-import com.example.allaroundapp.databinding.FragmentLoginBinding
-import com.example.allaroundapp.databinding.FragmentProfileBinding
 import com.example.allaroundapp.databinding.FragmentSendRequestsBinding
 import com.example.allaroundapp.other.customSnackbar
 import com.example.allaroundapp.other.hideKeyboard
-import com.example.allaroundapp.ui.fragments.friends.FriendsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

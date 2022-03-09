@@ -12,30 +12,31 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.allaroundapp.R
 import com.example.allaroundapp.adapters.GroupChatAdapter
 import com.example.allaroundapp.data.models.ChatGroupMessage
 import com.example.allaroundapp.data.models.ConnectedToSocket
-import com.example.allaroundapp.databinding.FragmentChatsBinding
-import com.example.allaroundapp.databinding.FragmentFriendsBinding
 import com.example.allaroundapp.databinding.FragmentGroupChatBinding
-import com.example.allaroundapp.databinding.FragmentLoginBinding
+import com.example.allaroundapp.other.Constants
 import com.example.allaroundapp.ui.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class GroupChatFragment: Fragment() {
-    private var _binding: FragmentGroupChatBinding? = null
+    private var _binding: com.example.allaroundapp.databinding.FragmentGroupChatBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: MainViewModel by viewModels()
     private val args: GroupChatFragmentArgs by navArgs()
 
     private var updateGroupChatMessagesJob: Job? = null
+    private var currentMessageDayJob: Job? = null
 
     private lateinit var groupAdapter: GroupChatAdapter
 
@@ -90,7 +91,8 @@ class GroupChatFragment: Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.groupMessages.collect { messages ->
                     val canScrollDown = binding.rvGroupChatMessages.canScrollVertically(1)
-                    updateGroupMessages(messages)
+                    val timed_messages = addTimestampsForMessages(messages.toMutableList())
+                    updateGroupMessages(timed_messages)
                     updateGroupChatMessagesJob?.join()
                     if(!canScrollDown) {
                         binding.rvGroupChatMessages.scrollToPosition(
@@ -114,6 +116,56 @@ class GroupChatFragment: Fragment() {
         binding.rvGroupChatMessages.apply {
             adapter = groupAdapter
             layoutManager = LinearLayoutManager(requireContext())
+
+            addOnScrollListener(object: RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    when(newState) {
+                        RecyclerView.SCROLL_STATE_DRAGGING -> {
+                            currentMessageDayJob?.cancel()
+                            binding.messageDayLayout.visibility = View.VISIBLE
+                        }
+                        RecyclerView.SCROLL_STATE_IDLE -> {
+                            currentMessageDayJob = lifecycleScope.launch {
+                                delay(500L)
+                                binding.messageDayLayout.visibility = View.GONE
+                            }
+                        }
+                    }
+                }
+
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    val llm = recyclerView.layoutManager as LinearLayoutManager
+
+                    when {
+                        dy > 0 -> {
+                            val index = llm.findLastCompletelyVisibleItemPosition()
+                            handleMessageDate(index)
+                        }
+                        dy < 0 -> {
+                            val index = llm.findFirstCompletelyVisibleItemPosition()
+                            handleMessageDate(index)
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+    private fun handleMessageDate(index: Int) {
+        val messages = groupAdapter.groupChatMessages
+
+        if (messages[index].sender != Constants.MESSAGE_DAY_ANNOUNCEMENT) {
+            val messageTimestamp = messages[index].timestamp
+            var messageDate = viewModel.formatMessageTimestamp(
+                System.currentTimeMillis(),
+                messageTimestamp
+            )
+            if(messageDate == "NO_HANDLE") {
+                messageDate = "Today"
+            }
+            binding.messageDayText.text = messageDate
+        } else {
+            binding.messageDayText.text = messages[index].message
         }
     }
 
@@ -126,5 +178,65 @@ class GroupChatFragment: Fragment() {
         requireActivity()
             .supportFragmentManager
             .popBackStack("createGroupFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+    }
+
+    private fun addTimestampsForMessages(messages: MutableList<ChatGroupMessage>): List<ChatGroupMessage> {
+        var todayHandled = false
+        var i = 0
+        var counter = messages.size
+        while (i < counter) {
+            if (i == 0) {
+                var messageTime = viewModel.formatMessageTimestamp(
+                    System.currentTimeMillis(),
+                    messages[0].timestamp
+                )
+                if(messageTime == "NO_HANDLE") messageTime = "Today"
+                val messageForTime = ChatGroupMessage(
+                    message = messageTime,
+                    sender = Constants.MESSAGE_DAY_ANNOUNCEMENT,
+                    "",
+                    0
+                )
+                messages.add(0, messageForTime)
+                counter++
+                i += 2
+            } else {
+                val messageTime = viewModel.formatMessageTimestamp(
+                    messages[i - 1].timestamp,
+                    messages[i].timestamp
+                )
+                if (messageTime == "Today") {
+                    if (!todayHandled) {
+                        val messageForTime = ChatGroupMessage(
+                            message = messageTime,
+                            sender = Constants.MESSAGE_DAY_ANNOUNCEMENT,
+                            "",
+                            0
+                        )
+                        messages.add(i, messageForTime)
+                        counter++
+                        i += 2
+                        todayHandled = true
+                    } else {
+                        i++
+                    }
+                } else {
+                    if (messageTime != "NO_HANDLE") {
+                        val messageForTime = ChatGroupMessage(
+                            message = messageTime,
+                            sender = Constants.MESSAGE_DAY_ANNOUNCEMENT,
+                            "",
+                            0
+                        )
+                        messages.add(i, messageForTime)
+                        i += 2
+                        counter++
+                    } else {
+                        i++
+                    }
+                }
+            }
+        }
+        return messages.toList()
     }
 }

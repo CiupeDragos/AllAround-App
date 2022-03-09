@@ -13,14 +13,18 @@ import com.example.allaroundapp.data.models.RecentChat
 import com.example.allaroundapp.databinding.RecentChatItemBinding
 import com.example.allaroundapp.other.Constants.TYPE_CHAT
 import com.example.allaroundapp.other.Constants.TYPE_GROUP
+import com.example.allaroundapp.ui.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.String
 
 
 class RecentChatsAdapter(
     val username: String,
-    val context: Context
+    val context: Context,
+    val viewModel: MainViewModel
 ) : RecyclerView.Adapter<RecentChatsAdapter.RecentChatViewHolder>() {
 
     class RecentChatViewHolder(
@@ -83,14 +87,24 @@ class RecentChatsAdapter(
                         tvNewMessages.text = lastMessageText
                         tvNewMessages.setTypeface(tvNewMessages.typeface, Typeface.NORMAL)
                         tvChatPartner.setTypeface(tvChatPartner.typeface, Typeface.NORMAL)
+                        lastMessageTimestamp.setTypeface(lastMessageTimestamp.typeface, Typeface.NORMAL)
+
+                        if(lastMessageText != "No messages") {
+                            lastMessageTimestamp.text = setLastMessageTime(curChat.lastMessageTimestamp)
+                            lastMessageTimestamp.text = setLastMessageTime(curChat.lastMessageTimestamp)
+
+                        }
                     } else {
                         tvNewMessages.text = context.resources
                             .getString(
                                 R.string.user_has_new_messages,
                                 curChat.newMessages
                             )
+                        lastMessageTimestamp.text = setLastMessageTime(curChat.lastMessageTimestamp)
                         tvNewMessages.setTypeface(tvNewMessages.typeface, Typeface.BOLD)
                         tvChatPartner.setTypeface(tvChatPartner.typeface, Typeface.BOLD)
+                        lastMessageTimestamp.setTypeface(lastMessageTimestamp.typeface, Typeface.BOLD)
+
                     }
                     root.setOnClickListener {
                         onChatClick?.let { clickChat ->
@@ -104,6 +118,7 @@ class RecentChatsAdapter(
                 holder.binding.apply {
                     chatPhoto.setImageResource(R.drawable.no_group_image)
                     tvChatPartner.text = curGroup.name
+
                     if(curGroup.newMessages == 0) {
                         val lastMessageText = setLastMessage(
                             username,
@@ -111,6 +126,7 @@ class RecentChatsAdapter(
                             curGroup.lastMessageSender
                         )
                         if(lastMessageText != "No messages") {
+                            lastMessageTimestamp.text = setLastMessageTime(curGroup.lastMessageTimestamp)
                             tvNewMessages.text = lastMessageText
                         } else {
                             if(curGroup.owner == username) {
@@ -121,7 +137,9 @@ class RecentChatsAdapter(
                         }
                         tvNewMessages.setTypeface(tvNewMessages.typeface, Typeface.NORMAL)
                         tvChatPartner.setTypeface(tvChatPartner.typeface, Typeface.NORMAL)
+                        lastMessageTimestamp.setTypeface(lastMessageTimestamp.typeface, Typeface.NORMAL)
                     } else {
+                        lastMessageTimestamp.text = setLastMessageTime(curGroup.lastMessageTimestamp)
                         tvNewMessages.text = context.resources
                             .getString(
                                 R.string.user_has_new_messages,
@@ -129,6 +147,7 @@ class RecentChatsAdapter(
                             )
                         tvNewMessages.setTypeface(tvNewMessages.typeface, Typeface.BOLD)
                         tvChatPartner.setTypeface(tvChatPartner.typeface, Typeface.BOLD)
+                        lastMessageTimestamp.setTypeface(lastMessageTimestamp.typeface, Typeface.BOLD)
                     }
                     root.setOnClickListener {
                         onGroupClick?.let { clickGroup ->
@@ -172,5 +191,38 @@ class RecentChatsAdapter(
 
     fun setOnGroupClickListener(listener: (GroupToSendAsRecent) -> Unit) {
         onGroupClick = listener
+    }
+
+    private fun setLastMessageTime(timestamp: Long): String {
+        val timestampDet = viewModel.getMessageDetailsFromTimestamp(timestamp)
+        val curTimestampDet = viewModel.getMessageDetailsFromTimestamp(System.currentTimeMillis())
+        val year1 = timestampDet["year"]
+        val month1 = timestampDet["month"]
+        val day1 = timestampDet["day"]
+        val year2 = curTimestampDet["year"]
+        val month2 = curTimestampDet["month"]
+        val day2 = curTimestampDet["day"]
+
+        val messageHourAndMinute = SimpleDateFormat("kk:mm", Locale.getDefault())
+            .format(timestamp)
+
+        var formattedTime = ""
+
+        when {
+            year1 != year2 -> {
+                formattedTime = "$month1 $day1 $year1"
+            }
+            month1 != month2 -> {
+                formattedTime = "$month1 $day1"
+            }
+            day1 != day2 -> {
+                formattedTime = "$month1 $day1"
+            }
+            else -> {
+                formattedTime = messageHourAndMinute
+            }
+        }
+
+        return formattedTime
     }
 }
